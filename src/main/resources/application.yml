@@ -1,6 +1,19 @@
 server:
   port: 8081
 
+spring:
+  redis:
+    sentinel:
+      master: kfcredis
+      nodes: memberredis1kfc.lexue.inc:26379,memberredis2kfc.lexue.inc:26379,memberredis3kfc.lexue.inc:26379
+    database: 1
+    password: lexue_kfc
+    lettuce:
+      pool:
+        min-idle: 5
+        max-idle: 50
+        max-active: 100
+        max-wait: 1000
 
 jetcache:
   statIntervalMinutes: 15
@@ -11,13 +24,7 @@ jetcache:
       keyConvertor: fastjson
   remote:
     default:
-      type: redis
+      type: redis.springdata
       keyConvertor: fastjson
       valueEncoder: java
       valueDecoder: java
-      poolConfig:
-        minIdle: 5
-        maxIdle: 20
-        maxTotal: 50
-      host: 127.0.0.1
-      port: 6379

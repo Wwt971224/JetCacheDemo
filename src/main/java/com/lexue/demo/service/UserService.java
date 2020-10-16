@@ -10,12 +10,12 @@ import java.util.concurrent.TimeUnit;
 
 public interface UserService {
 
-    @Cached(name="userCache.",key ="#userId" ,expire = 5,timeUnit = TimeUnit.SECONDS,cacheType = CacheType.LOCAL)
+    @Cached(name="retcache:userCache.",key ="#userId" ,expire = 3600,timeUnit = TimeUnit.SECONDS,cacheType = CacheType.REMOTE)
     User selectById(Long userId);
 
-    @CacheUpdate(name="userCache.", key="#user.userId", value="#user")
+    @CacheUpdate(name="retcache:userCache.", key="#user.userId", value="#user")
     void updateUser(User user);
 
-    @CacheInvalidate(name="userCache.", key="#userId")
+    @CacheInvalidate(name="retcache:userCache.", key="#userId")
     void deleteBuId(Long userId);
 }
