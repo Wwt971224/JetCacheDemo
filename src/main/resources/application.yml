@@ -6,7 +6,7 @@ spring:
     sentinel:
       master: kfcredis
       nodes: memberredis1kfc.lexue.inc:26379,memberredis2kfc.lexue.inc:26379,memberredis3kfc.lexue.inc:26379
-    database: 1
+    database: 2
     password: lexue_kfc
     lettuce:
       pool:

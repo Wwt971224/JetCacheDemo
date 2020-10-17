@@ -27,5 +27,11 @@ public class UserController {
         userService.deleteBuId(userId);
     }
 
+    @GetMapping("/user")
+    public User getByMobile(String userMobile) {
+        return userService.selectByMobile(userMobile);
+    }
+
+
 
 }
