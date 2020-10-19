@@ -1,7 +1,8 @@
 package com.lexue.demo.controller;
 
-import com.lexue.demo.entity.User;
-import com.lexue.demo.service.UserService;
+import com.lexue.demo.domain.UserDTO;
+import com.lexue.demo.domain.UserVO;
+import com.lexue.demo.service.IUserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -10,28 +11,38 @@ import javax.annotation.Resource;
 public class UserController {
 
     @Resource
-    private UserService userService;
+    private IUserService userService;
 
-    @GetMapping("/user/{userId}")
-    public User getUserById(@PathVariable("userId") Long userId) {
-        return userService.selectById(userId);
+    @GetMapping("/user/userId/{userId}")
+    public UserVO getUserById(@PathVariable("userId") Long userId) {
+        return userService.getUserById(userId);
+    }
+
+    @GetMapping("/user/leId/{leId}")
+    public UserVO getUserByLeId(@PathVariable("leId") String leId) {
+        return userService.getUserByLeId(leId);
+    }
+
+    @GetMapping("/user/mobile/{userMobile}")
+    public UserVO getByMobile(@PathVariable("userMobile") String userMobile) {
+        return userService.getUserByMobile(userMobile);
+    }
+
+    @PostMapping("/user")
+    public void addUser(@RequestBody UserDTO userDTO) {
+        userService.saveUser(userDTO);
+
     }
 
     @PutMapping("/user")
-    public void updateUser(@RequestBody User user) {
-        userService.updateUser(user);
+    public void updateUser(@RequestBody UserDTO userDTO) {
+        userService.updateUser(userDTO);
     }
 
     @DeleteMapping("/user/{userId}")
     public void deleteUser(@PathVariable("userId") Long userId) {
-        userService.deleteBuId(userId);
+        UserDTO userDTO = UserDTO.builder().userId(userId).build();
+        userService.deleteUser(userDTO);
     }
-
-    @GetMapping("/user")
-    public User getByMobile(String userMobile) {
-        return userService.selectByMobile(userMobile);
-    }
-
-
 
 }
