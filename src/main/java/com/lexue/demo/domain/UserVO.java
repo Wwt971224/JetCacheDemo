@@ -2,8 +2,10 @@ package com.lexue.demo.domain;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class UserVO {
+public class UserVO implements Serializable {
     /**
      * 主键用户id
      */
